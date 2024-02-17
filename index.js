@@ -63,7 +63,7 @@ const wholeData=async()=>{
     
     for (const result of results){
         const values=[result.title,result.description,result.price,result.category,result.sold,result.image,result.dateOfSale] ; 
-       pool.query(`INSERT INTO TRANSACTIONS (title,description,
+       pool.query(`INSERT INTO trans (title,description,
         price,category,sold,image,dateOfSale)
         VALUES(?,?,?,?,?,?,?)`,values,(err,res)=>{
             if (err) {
@@ -97,9 +97,9 @@ wholeData();
 
 
        
-app.get("/transactions/",(req,res)=>{
+app.get("/trans/",(req,res)=>{
   const {limit,offset,search_q,category}=req.query 
-  const sql2=`SELECT * FROM TRANSACTIONS WHERE title LIKE '%${search_q}%' AND dateOfSale=${category} ORDER BY id 
+  const sql2=`SELECT * FROM TRANS WHERE title LIKE '%${search_q}%' AND dateOfSale=${category} ORDER BY id 
    LIMIT ${limit} OFFSET ${offset} ;`;  
 
 
@@ -116,7 +116,7 @@ app.get("/transactions/",(req,res)=>{
 })
 
 
-app.get('/transactions/barchart/:category', (req, res) => {
+app.get('/trans/barchart/:category', (req, res) => {
   const selectedMonth = req.params.category;
 
   
@@ -135,7 +135,7 @@ app.get('/transactions/barchart/:category', (req, res) => {
         WHEN price >= 901 THEN '901-above'
       END AS price_range,
       COUNT(*) AS item_count
-    FROM TRANSACTIONS
+    FROM TRANS
     WHERE dateOfSale = ?
     GROUP BY price;
   `;
@@ -156,12 +156,12 @@ app.get('/transactions/barchart/:category', (req, res) => {
 
 
 
-app.get('/transactions/piechart/:selectedMonths', (req, res) => {
+app.get('/trans/piechart/:selectedMonths', (req, res) => {
   const selectedMonth = req.params.selectedMonths;
 
   const sqlQuery = `
     SELECT category, COUNT(*) AS itemCount
-    FROM transactions
+    FROM trans
     WHERE dateOfSale = ?
     GROUP BY category;
   `;
