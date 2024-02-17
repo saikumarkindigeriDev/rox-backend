@@ -63,7 +63,8 @@ const wholeData=async()=>{
     
     for (const result of results){
         const values=[result.title,result.description,result.price,result.category,result.sold,result.image,result.dateOfSale] ; 
-       pool.query(`INSERT INTO TRANSACTIONS (title,description,price,category,sold,image,dateOfSale)
+       pool.query(`INSERT INTO TRANSACTIONS (title,description,
+        price,category,sold,image,dateOfSale)
         VALUES(?,?,?,?,?,?,?)`,values,(err,res)=>{
             if (err) {
                 console.log(err);
