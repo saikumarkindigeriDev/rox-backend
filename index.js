@@ -99,7 +99,7 @@ wholeData();
        
 app.get("/trans/",(req,res)=>{
   const {limit,offset,search_q,category}=req.query 
-  const sql2=`SELECT * FROM TRANS WHERE title LIKE '%${search_q}%' AND dateOfSale=${category} ORDER BY id 
+  const sql2=`SELECT * FROM trans WHERE title LIKE '%${search_q}%' AND dateOfSale=${category} ORDER BY id 
    LIMIT ${limit} OFFSET ${offset} ;`;  
 
 
@@ -135,7 +135,7 @@ app.get('/trans/barchart/:category', (req, res) => {
         WHEN price >= 901 THEN '901-above'
       END AS price_range,
       COUNT(*) AS item_count
-    FROM TRANS
+    FROM trans
     WHERE dateOfSale = ?
     GROUP BY price;
   `;
