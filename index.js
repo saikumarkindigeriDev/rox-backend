@@ -98,7 +98,7 @@ wholeData();
 
        
 app.get("/trans/",(req,res)=>{
-  const {limit,offset,search_q,category}=req.body 
+  const {limit,offset,search_q,category}=req.query
   const sql2=`SELECT * FROM trans WHERE title LIKE '%${search_q}%' AND dateOfSale=${category} ORDER BY id 
    LIMIT ${limit} OFFSET ${offset} ;`;  
 
